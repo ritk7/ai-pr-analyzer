@@ -226,3 +226,8 @@ other than what was asked would be the wrong trade.
   and offers no pagination. Flagged via `fileListComplete`, not worked around.
 - **Risk scoring is heuristic, not semantic.** It reads paths and line counts, not code. A one-line
   change to an auth check and a one-line comment fix in the same file score identically.
+
+## Status
+
+40 backend tests passing (`node:test`). Last verified end-to-end — live GitHub repo, local Ollama,
+MongoDB Atlas — on 2026-09-17.
