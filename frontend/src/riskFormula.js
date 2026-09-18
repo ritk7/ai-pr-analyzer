@@ -13,6 +13,49 @@ export const WEIGHTS = {
 
 export const SIZE_THRESHOLDS = { smallMaxLines: 50, mediumMaxLines: 300 };
 export const LEVEL_THRESHOLDS = { lowMax: 1, mediumMax: 5 };
+export const MAX_FILES_NAMED_IN_REASONING = 5;
+
+// File-path patterns, copied verbatim from backend/src/config/index.js, for the full-repo
+// formula in riskScoring.js. Not used by the two-toggle calculator above.
+export const SENSITIVE_FILE_PATTERNS = [
+  '(^|/)\\.env(\\..*)?$',
+  '(^|/)package(-lock)?\\.json$',
+  '(^|/)yarn\\.lock$',
+  '(^|/)pnpm-lock\\.yaml$',
+  '(^|/)requirements\\.txt$',
+  '(^|/)pipfile(\\.lock)?$',
+  '(^|/)pyproject\\.toml$',
+  '(^|/)go\\.(mod|sum)$',
+  '(^|/)gemfile(\\.lock)?$',
+  '(^|/)composer\\.(json|lock)$',
+  '(^|/)dockerfile$',
+  '(^|/)docker-compose\\.ya?ml$',
+  '(^|/)config(s)?/',
+  '(^|/)(auth|authentication|authorization)(/|\\.)',
+  '\\.github/workflows/',
+  '(secret|credential|apikey|api_key)',
+];
+
+export const TEST_FILE_PATTERNS = [
+  '\\.(test|spec)\\.[jt]sx?$',
+  '(^|/)__tests__/',
+  '(^|/)tests?/',
+  '(^|/)[^/]*_test\\.(go|py|rb|rs|ts|tsx|js|jsx|dart|ex|exs)$',
+  '(^|/)[^/]*_spec\\.(rb|js|jsx|ts|tsx)$',
+  '(^|/)[^/]*Tests?\\.(cs|java|kt|kts|swift|php|scala)$',
+  '(^|/)test_[^/]+\\.py$',
+  '(^|/)testdata/',
+];
+
+export const NON_CODE_FILE_PATTERNS = [
+  '\\.mdx?$',
+  '\\.txt$',
+  '\\.rst$',
+  '(^|/)LICENSE([.-].*)?$',
+  '(^|/)CHANGELOG([.-].*)?$',
+  '(^|/)README([.-].*)?$',
+  '\\.(png|jpe?g|gif|svg|ico|webp)$',
+];
 
 // Highest score the three factors can sum to — used to scale the explainer's meter.
 export const MAX_SCORE = WEIGHTS.sizeLarge + WEIGHTS.sensitiveFileTouched + WEIGHTS.noTestsIncluded;

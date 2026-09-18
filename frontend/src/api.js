@@ -1,10 +1,11 @@
-import { DEMO_ANALYSES, demoAnalyses, demoStats } from './demoData.js';
+import { queryDemoAnalyses, demoStatsFor } from './demoStore.js';
+import { analyzeRepoLive } from './liveAnalysis.js';
 
-// Static GitHub Pages hosting has no backend to call — VITE_DEMO_MODE (set by
-// `npm run build:demo`) swaps every network call for the sample dataset in demoData.js
-// instead, with a short artificial delay so loading states still look real.
+// Static GitHub Pages hosting has no backend — VITE_DEMO_MODE (set by `npm run build:demo`)
+// switches reads to the in-memory demoStore and "Analyze repo" to a real, live fetch against
+// GitHub's public API (see liveAnalysis.js) instead of calling this non-existent backend.
 const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
-const DEMO_DELAY_MS = 500;
+const DEMO_READ_DELAY_MS = 300;
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -37,28 +38,17 @@ async function request(path, options) {
   return data;
 }
 
-export async function analyzeRepo(repo) {
+export function analyzeRepo(repo) {
   if (DEMO_MODE) {
-    await delay(DEMO_DELAY_MS);
-    // Nothing is actually fetched from GitHub here — this just reports the sample dataset
-    // as if this repo had produced it, so the "run summary" banner has something to show.
-    return {
-      repo,
-      commitsFetched: DEMO_ANALYSES.filter((a) => a.type === 'commit').length,
-      pullRequestsFetched: DEMO_ANALYSES.filter((a) => a.type === 'pull_request').length,
-      itemsSkippedDuringFetch: 0,
-      succeeded: DEMO_ANALYSES.length,
-      failed: 0,
-      demo: true,
-    };
+    return analyzeRepoLive(repo);
   }
   return request('/api/analyze', { method: 'POST', body: JSON.stringify({ repo }) });
 }
 
 export async function fetchAnalyses({ risk, repo, page, limit, sort } = {}) {
   if (DEMO_MODE) {
-    await delay(DEMO_DELAY_MS);
-    return demoAnalyses({ risk, repo, sort, page, limit });
+    await delay(DEMO_READ_DELAY_MS);
+    return queryDemoAnalyses({ risk, repo, sort, page, limit });
   }
   const params = new URLSearchParams();
   if (risk) params.set('risk', risk);
@@ -72,8 +62,8 @@ export async function fetchAnalyses({ risk, repo, page, limit, sort } = {}) {
 
 export async function fetchStats(repo) {
   if (DEMO_MODE) {
-    await delay(DEMO_DELAY_MS);
-    return demoStats(repo);
+    await delay(DEMO_READ_DELAY_MS);
+    return demoStatsFor(repo);
   }
   const qs = repo ? `?repo=${encodeURIComponent(repo)}` : '';
   return request(`/api/analyses/stats${qs}`);

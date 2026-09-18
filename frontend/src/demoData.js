@@ -225,27 +225,3 @@ export const DEMO_ANALYSES = [
     },
   },
 ];
-
-export function demoStats(repoFilter) {
-  const items = repoFilter ? DEMO_ANALYSES.filter((a) => a.repo === repoFilter) : DEMO_ANALYSES;
-  const riskDistribution = { low: 0, medium: 0, high: 0 };
-  for (const item of items) riskDistribution[item.riskLevel]++;
-  return { total: items.length, riskDistribution };
-}
-
-const SORTERS = {
-  recent: (a, b) => new Date(b.lastAnalyzedAt) - new Date(a.lastAnalyzedAt),
-  'risk-desc': (a, b) => b.riskScore - a.riskScore,
-  'risk-asc': (a, b) => a.riskScore - b.riskScore,
-};
-
-export function demoAnalyses({ risk, repo, sort = 'recent', page = 1, limit = 10 }) {
-  let items = DEMO_ANALYSES.filter((a) => (!risk || a.riskLevel === risk) && (!repo || a.repo === repo));
-  items = [...items].sort(SORTERS[sort] ?? SORTERS.recent);
-
-  const total = items.length;
-  const totalPages = Math.ceil(total / limit) || 1;
-  const start = (page - 1) * limit;
-
-  return { items: items.slice(start, start + limit), total, page, limit, sort, totalPages };
-}

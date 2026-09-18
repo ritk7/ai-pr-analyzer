@@ -125,9 +125,18 @@ export default function App() {
 
       {lastRunSummary && !analyzeError && (
         <div className="run-summary">
-          Analyzed <strong>{lastRunSummary.repo}</strong>: {lastRunSummary.succeeded} saved
+          {lastRunSummary.liveFromGitHub ? 'Fetched live from GitHub' : 'Analyzed'}{' '}
+          <strong>{lastRunSummary.repo}</strong>: {lastRunSummary.succeeded} scored
           {lastRunSummary.failed > 0 && `, ${lastRunSummary.failed} skipped`}
-          {' '}({lastRunSummary.commitsFetched} commits, {lastRunSummary.pullRequestsFetched} PRs fetched).
+          {' '}({lastRunSummary.commitsFetched} commits, {lastRunSummary.pullRequestsFetched} PRs).
+          {lastRunSummary.liveFromGitHub && (
+            <>
+              {' '}
+              {lastRunSummary.succeeded === 0
+                ? 'No recent commits/PRs found in the small window this demo checks.'
+                : 'Risk scores are real; AI summaries are not (no backend on this static build).'}
+            </>
+          )}
         </div>
       )}
 
