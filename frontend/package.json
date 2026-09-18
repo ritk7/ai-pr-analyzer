@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "React + Vite dashboard for the AI PR & Code Review Assistant",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ritk7/ai-pr-analyzer.git",

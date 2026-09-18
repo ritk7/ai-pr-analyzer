@@ -248,3 +248,7 @@ other than what was asked would be the wrong trade.
 
 40 backend tests passing (`node:test`). Last verified end-to-end — live GitHub repo, local Ollama,
 MongoDB Atlas — on 2026-09-17.
+
+## License
+
+[MIT](LICENSE)

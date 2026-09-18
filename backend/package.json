@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Backend API for the AI PR & Code Review Assistant",
   "main": "src/server.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ritk7/ai-pr-analyzer.git",
