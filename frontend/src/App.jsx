@@ -5,7 +5,7 @@ import FilterBar from './components/FilterBar.jsx';
 import AnalysisList from './components/AnalysisList.jsx';
 import Pagination from './components/Pagination.jsx';
 import ErrorBanner from './components/ErrorBanner.jsx';
-import { analyzeRepo, fetchAnalyses, fetchStats } from './api.js';
+import { analyzeRepo, fetchAnalyses, fetchStats, DEMO_MODE } from './api.js';
 
 const PAGE_SIZE = 10;
 
@@ -96,6 +96,16 @@ export default function App() {
         <h1>AI PR &amp; Code Review Assistant</h1>
         <p className="app-subtitle">Pull recent commits &amp; PRs, get an explainable risk score and an AI summary.</p>
       </header>
+
+      {DEMO_MODE && (
+        <div className="demo-banner">
+          <strong>Demo mode.</strong> This is a static build with sample data — no backend, no live
+          GitHub calls. "Analyze repo" replays the sample set below.{' '}
+          <a href="https://github.com/ritk7/ai-pr-analyzer" target="_blank" rel="noreferrer">
+            Run it for real →
+          </a>
+        </div>
+      )}
 
       <RepoInput onAnalyze={handleAnalyze} loading={analyzeLoading} />
 
