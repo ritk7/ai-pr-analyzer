@@ -5,6 +5,7 @@ import FilterBar from './components/FilterBar.jsx';
 import AnalysisList from './components/AnalysisList.jsx';
 import Pagination from './components/Pagination.jsx';
 import ErrorBanner from './components/ErrorBanner.jsx';
+import RiskExplainer from './components/RiskExplainer.jsx';
 import { analyzeRepo, fetchAnalyses, fetchStats, DEMO_MODE } from './api.js';
 
 const PAGE_SIZE = 10;
@@ -92,20 +93,31 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>AI PR &amp; Code Review Assistant</h1>
-        <p className="app-subtitle">Pull recent commits &amp; PRs, get an explainable risk score and an AI summary.</p>
+      <header className="masthead">
+        <p className="masthead-eyebrow">PR &amp; commit triage</p>
+        <h1>
+          Know what changed, and <em>how risky it is</em>, before you open the diff.
+        </h1>
+        <p className="masthead-dek">
+          Pulls recent commits and pull requests from any GitHub repo, then scores each one with an
+          additive formula you can read, and summarizes it with a local LLM. No black box — every
+          score shows its arithmetic.
+        </p>
       </header>
 
       {DEMO_MODE && (
         <div className="demo-banner">
-          <strong>Demo mode.</strong> This is a static build with sample data — no backend, no live
-          GitHub calls. "Analyze repo" replays the sample set below.{' '}
+          <span className="demo-banner-tag">Demo</span>
+          <span>
+            Static build, sample data — no backend. The calculator, filters and sorting are all live.
+          </span>
           <a href="https://github.com/ritk7/ai-pr-analyzer" target="_blank" rel="noreferrer">
-            Run it for real →
+            Source →
           </a>
         </div>
       )}
+
+      <RiskExplainer />
 
       <RepoInput onAnalyze={handleAnalyze} loading={analyzeLoading} />
 
@@ -141,6 +153,13 @@ export default function App() {
         onPageChange={setPage}
         disabled={listLoading}
       />
+
+      <footer className="app-footer">
+        <span>Express · Octokit · Mongoose · Ollama · React</span>
+        <a href="https://github.com/ritk7/ai-pr-analyzer" target="_blank" rel="noreferrer">
+          github.com/ritk7/ai-pr-analyzer
+        </a>
+      </footer>
     </div>
   );
 }
