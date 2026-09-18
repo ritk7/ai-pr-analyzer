@@ -8,6 +8,9 @@ Connects to a GitHub repo, pulls recent commits and pull requests, and for each 
 
 The goal is triage: skim the dashboard and know what changed and how risky it looks before opening a diff.
 
+**[Live demo →](https://ritk7.github.io/ai-pr-analyzer/)** — a static build with sample data (the
+real app needs a live backend: GitHub API, local Ollama, MongoDB — see [Demo mode](#demo-mode)).
+
 ## Architecture
 
 ```
@@ -33,6 +36,7 @@ frontend/   React + Vite dashboard
   src/
     api.js                Fetch wrapper, throws typed errors carrying a `code`
     errorMessages.js      Maps every backend error code to a readable title + hint
+    demoData.js           Sample dataset used by the static GitHub Pages build (see below)
     components/           RepoInput, StatsPanel, FilterBar, AnalysisCard/List,
                           Pagination, ErrorBanner
 ```
@@ -185,6 +189,19 @@ npm install
 cp .env.example .env    # VITE_API_URL, defaults to http://localhost:5001
 npm run dev              # http://localhost:5173
 ```
+
+### Demo mode
+
+```bash
+cd frontend
+npm run build:demo   # outputs frontend/dist, base path set for GitHub Pages
+```
+
+Builds the same app with every backend call swapped for a fixed sample dataset
+([`demoData.js`](frontend/src/demoData.js) — mostly real output captured while testing this
+project against live repos), so it runs on static hosting with no server at all. A banner in the
+UI makes clear it's sample data, not a live connection. This is what's deployed to the
+[live demo](https://ritk7.github.io/ai-pr-analyzer/) via the `gh-pages` branch.
 
 ### Tests
 ```bash
