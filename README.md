@@ -37,8 +37,13 @@ frontend/   React + Vite dashboard
     api.js                Fetch wrapper, throws typed errors carrying a `code`
     errorMessages.js      Maps every backend error code to a readable title + hint
     demoData.js           Sample dataset used by the static GitHub Pages build (see below)
+    demoStore.js          In-memory stand-in for MongoDB in demo mode, upserts like the real API
+    githubClient.js       Browser-side GitHub REST client used by demo mode's "Analyze repo"
+    liveAnalysis.js       Runs a real analyze pass client-side (no LLM step) in demo mode
+    riskFormula.js        Client-side mirror of backend/src/config/index.js's weights/patterns
+    riskScoring.js        Full port of the backend risk formula for the no-backend demo
     components/           RepoInput, StatsPanel, FilterBar, AnalysisCard/List,
-                          Pagination, ErrorBanner
+                          Pagination, ErrorBanner, RiskExplainer
 ```
 
 **Why the layering is this way**: `riskScoring.js` and `diffTruncation.js` are pure functions —
