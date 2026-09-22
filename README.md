@@ -222,7 +222,7 @@ live (you would have to burn 5,000 requests) but are fully exercised here.
 
 | Method | Path | Purpose |
 |---|---|---|
-| `POST` | `/api/analyze` | Body `{ repo, commitLimit?, prLimit? }`. Fetches recent commits + PRs, scores + summarizes each, upserts. Limits are 1-25. |
+| `POST` | `/api/analyze` | Body `{ repo, commitLimit?, prLimit? }`. Fetches recent commits + PRs, scores + summarizes each, upserts. Limits are 1-25, defaulting to 10 each when omitted. |
 | `GET` | `/api/analyses?risk=&repo=&sort=&page=&limit=` | List. `sort` is `recent` \| `risk-desc` \| `risk-asc`. |
 | `GET` | `/api/analyses/stats?repo=` | Total count + risk-level distribution. |
 | `GET` | `/api/analyses/:id` | Single record detail. |
