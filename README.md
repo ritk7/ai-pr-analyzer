@@ -179,6 +179,9 @@ would add friction to the dashboard for no meaningful protection.
 - A GitHub personal access token (optional for public repos, but the unauthenticated limit is
   60 req/hr vs 5,000 with a token)
 
+Talking to a GitHub Enterprise instance instead of github.com? Set `GITHUB_API_BASE_URL` in
+`backend/.env` to your instance's API base URL (see `backend/.env.example`).
+
 ### Backend
 ```bash
 cd backend
