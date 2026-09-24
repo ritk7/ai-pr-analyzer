@@ -187,7 +187,8 @@ Talking to a GitHub Enterprise instance instead of github.com? Set `GITHUB_API_B
 cd backend
 npm install
 cp .env.example .env   # fill in GITHUB_TOKEN, MONGODB_URI, OLLAMA_MODEL
-npm run dev             # http://localhost:5001
+npm run dev             # http://localhost:5001, restarts on file changes
+npm start                # same server without the file watcher, for production
 ```
 
 ### Frontend
@@ -196,6 +197,8 @@ cd frontend
 npm install
 cp .env.example .env    # VITE_API_URL, defaults to http://localhost:5001
 npm run dev              # http://localhost:5173
+npm run build             # production bundle in frontend/dist, talks to a real backend
+npm run preview            # serve that bundle locally to sanity-check it
 ```
 
 ### Demo mode
