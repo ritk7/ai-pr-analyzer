@@ -254,6 +254,9 @@ other than what was asked would be the wrong trade.
   and offers no pagination. Flagged via `fileListComplete`, not worked around.
 - **Risk scoring is heuristic, not semantic.** It reads paths and line counts, not code. A one-line
   change to an auth check and a one-line comment fix in the same file score identically.
+- **No automated frontend tests.** The 40-test suite (`cd backend && npm test`) covers the risk
+  formula, truncation budget, LLM response parser and GitHub error paths; the dashboard is verified
+  manually against a live backend and via the demo-mode build.
 
 ## Status
 
