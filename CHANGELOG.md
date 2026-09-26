@@ -5,6 +5,7 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Noted the lack of an automated frontend test suite in Known limitations.
 - Documented production start/build commands alongside dev mode.
 - Documented GitHub Enterprise support via `GITHUB_API_BASE_URL`.
 - Documented default commit/PR limits in the API reference.
