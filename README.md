@@ -11,6 +11,19 @@ The goal is triage: skim the dashboard and know what changed and how risky it lo
 **[Live demo →](https://ritk7.github.io/ai-pr-analyzer/)** — a static build with sample data (the
 real app needs a live backend: GitHub API, local Ollama, MongoDB — see [Demo mode](#demo-mode)).
 
+## Table of contents
+
+- [Architecture](#architecture)
+- [The risk-scoring formula, in plain language](#the-risk-scoring-formula-in-plain-language)
+- [LLM diff truncation strategy](#llm-diff-truncation-strategy)
+- [Explicit error handling](#explicit-error-handling)
+- [API authentication](#api-authentication)
+- [Setup](#setup)
+- [API](#api)
+- [Known limitations](#known-limitations)
+- [Status](#status)
+- [License](#license)
+
 ## Architecture
 
 ```
