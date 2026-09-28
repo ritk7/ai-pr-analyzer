@@ -18,6 +18,7 @@ real app needs a live backend: GitHub API, local Ollama, MongoDB — see [Demo m
 - [LLM diff truncation strategy](#llm-diff-truncation-strategy)
 - [Explicit error handling](#explicit-error-handling)
 - [API authentication](#api-authentication)
+- [Configuration](#configuration)
 - [Setup](#setup)
 - [API](#api)
 - [Known limitations](#known-limitations)
@@ -182,6 +183,26 @@ default, so the unauthenticated configuration is not reachable off-box without d
 
 Read endpoints stay open by design: they expose only public-repo analysis results, and gating them
 would add friction to the dashboard for no meaningful protection.
+
+## Configuration
+
+Beyond the required `GITHUB_TOKEN` / `MONGODB_URI` / `API_KEY` covered above, these optional
+overrides (commented out in `backend/.env.example`) tune server and analysis behavior without
+touching code:
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `PORT` | `5001` | Backend HTTP port |
+| `HOST` | `127.0.0.1` | Set to `0.0.0.0` to expose off-box (set `API_KEY` too) |
+| `GITHUB_API_BASE_URL` | `https://api.github.com` | Override for GitHub Enterprise |
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | Local Ollama server |
+| `OLLAMA_NUM_CTX` | `4096` | Context window budget; see [LLM diff truncation strategy](#llm-diff-truncation-strategy) |
+| `OLLAMA_TIMEOUT_MS` | `45000` | Per-request timeout before an item is marked `OLLAMA_TIMEOUT` |
+| `MAX_COMMITS_PER_RUN` / `MAX_PRS_PER_RUN` | `10` / `10` | Default items pulled per `POST /api/analyze` call when not specified in the request |
+| `MAX_ITEMS_PER_RUN_HARD_CAP` | `25` | Ceiling on caller-supplied `commitLimit`/`prLimit` |
+| `MAX_FILES_PER_ITEM` | `300` | File objects fetched per commit/PR before `fileListComplete` flips to `false` |
+
+Full defaults live in [`backend/src/config/index.js`](backend/src/config/index.js).
 
 ## Setup
 
