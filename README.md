@@ -21,6 +21,7 @@ real app needs a live backend: GitHub API, local Ollama, MongoDB — see [Demo m
 - [Configuration](#configuration)
 - [Setup](#setup)
 - [API](#api)
+- [Troubleshooting](#troubleshooting)
 - [Known limitations](#known-limitations)
 - [Status](#status)
 - [License](#license)
@@ -276,6 +277,18 @@ deterministic `_id` tiebreak so pages cannot repeat or drop rows.
 Read parameters are **clamped**; write parameters are **rejected**. Reads are cheap and idempotent so
 forgiveness costs nothing, while an analyze run is expensive enough that silently honouring something
 other than what was asked would be the wrong trade.
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| `POST /api/analyze` returns `OLLAMA_UNAVAILABLE` | `ollama serve` isn't running, or `OLLAMA_BASE_URL` doesn't match its port | Start Ollama and confirm `curl http://localhost:11434` responds |
+| `OLLAMA_TIMEOUT` on most/all items | The model hasn't been pulled, so the first call is downloading it instead of generating | `ollama pull llama3.2:3b` before analyzing, or raise `OLLAMA_TIMEOUT_MS` |
+| `GITHUB_RATE_LIMITED` quickly, even on a small repo | No `GITHUB_TOKEN` set — unauthenticated requests are capped at 60/hr vs 5,000/hr | Add a personal access token to `backend/.env` |
+| `REPO_NOT_FOUND_OR_PRIVATE` for a repo you know exists | The token can't see it (private repo, wrong org scope), or the owner/repo string is misspelled | Check the token's access and the exact `owner/repo` spelling — GitHub deliberately returns the same 404 for both cases |
+| Backend starts but the frontend can't reach it | `VITE_API_URL` in `frontend/.env` doesn't match the backend's actual host/port | Confirm the backend port (`PORT`, default 5001) and update `VITE_API_URL` to match |
+| `MongooseServerSelectionError` on backend startup | MongoDB isn't running, or `MONGODB_URI` is wrong | Start local `mongod`, or verify the Atlas connection string and IP allowlist |
+| `POST /api/analyze` returns 401 unexpectedly | `API_KEY` is set on the backend but the caller isn't sending a matching `x-api-key` header | Send the header, or unset `API_KEY` for local-only use |
 
 ## Known limitations
 

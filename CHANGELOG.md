@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added a Troubleshooting section covering the most common setup and
+  runtime errors (Ollama, GitHub rate limits, MongoDB, API key auth).
 - Added a table of contents linking to all top-level README sections.
 - Noted the lack of an automated frontend test suite in Known limitations.
 - Documented production start/build commands alongside dev mode.
