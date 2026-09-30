@@ -278,6 +278,41 @@ Read parameters are **clamped**; write parameters are **rejected**. Reads are ch
 forgiveness costs nothing, while an analyze run is expensive enough that silently honouring something
 other than what was asked would be the wrong trade.
 
+**Example** — analyzing a repo with small limits for a quick test run:
+
+```bash
+curl -X POST http://localhost:5001/api/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"repo": "octocat/Hello-World", "commitLimit": 3, "prLimit": 3}'
+```
+
+```jsonc
+{
+  "repo": "octocat/Hello-World",
+  "commitsFetched": 3,
+  "pullRequestsFetched": 2,
+  "itemsSkippedDuringFetch": 0,
+  "succeeded": 5,
+  "failed": 0,
+  "results": [
+    {
+      "id": "665f1a2b3c4d5e6f7a8b9c0d",
+      "type": "commit",
+      "externalId": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11",
+      "title": "Merge pull request #6 from Spaceghost/patch-1",
+      "riskLevel": "low",
+      "riskScore": 0,
+      "llmAnalysisFailed": false,
+      "saved": true
+    }
+  ]
+}
+```
+
+This response is a lightweight per-item summary, not the full stored record — fetch the
+complete documents (with `summary`, `qualityNote`, `riskReasoning`, `diffStats`, etc.)
+afterward with `GET /api/analyses?repo=octocat/Hello-World`.
+
 ## Troubleshooting
 
 | Symptom | Cause | Fix |
