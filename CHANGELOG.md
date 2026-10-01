@@ -5,6 +5,9 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Documented example responses for `GET /api/analyses`,
+  `GET /api/analyses/stats`, and `GET /api/analyses/:id` in the API section
+  (previously only `POST /api/analyze` had one).
 - Added a sample `curl` request and response body for `POST /api/analyze`
   to the API section, alongside the existing endpoint table.
 - Added a Troubleshooting section covering the most common setup and

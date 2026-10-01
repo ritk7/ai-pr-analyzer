@@ -313,6 +313,49 @@ This response is a lightweight per-item summary, not the full stored record — 
 complete documents (with `summary`, `qualityNote`, `riskReasoning`, `diffStats`, etc.)
 afterward with `GET /api/analyses?repo=octocat/Hello-World`.
 
+**`GET /api/analyses?repo=octocat/Hello-World&risk=low`** — the full stored record per item:
+
+```jsonc
+{
+  "items": [
+    {
+      "_id": "665f1a2b3c4d5e6f7a8b9c0d",
+      "repo": "octocat/Hello-World",
+      "type": "commit",
+      "externalId": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11",
+      "title": "Merge pull request #6 from Spaceghost/patch-1",
+      "author": "octocat",
+      "summary": "Merges a documentation fix from a contributor's branch.",
+      "qualityNote": "Clean merge commit, no code changes.",
+      "riskLevel": "low",
+      "riskScore": 0,
+      "riskReasoning": ["Diff size: 1 line (+0)", "No sensitive files touched", "No code files changed, so no missing-tests penalty"],
+      "diffStats": {
+        "additions": 1, "deletions": 0, "changedFiles": 1,
+        "sensitiveFiles": [], "testFilesIncluded": [],
+        "diffTruncatedForLLM": false, "fileListComplete": true
+      },
+      "firstAnalyzedAt": "2026-09-10T14:02:11.000Z",
+      "lastAnalyzedAt": "2026-09-17T09:15:44.000Z"
+    }
+  ],
+  "total": 1,
+  "page": 1,
+  "limit": 20,
+  "sort": "recent",
+  "totalPages": 1
+}
+```
+
+**`GET /api/analyses/stats?repo=octocat/Hello-World`**:
+
+```jsonc
+{ "total": 5, "riskDistribution": { "low": 3, "medium": 2, "high": 0 } }
+```
+
+**`GET /api/analyses/:id`** returns a single document in the same shape as one entry of
+`items` above, or a 400 `VALIDATION_ERROR` for a malformed id / 404 `NOT_FOUND` if it doesn't exist.
+
 ## Troubleshooting
 
 | Symptom | Cause | Fix |
