@@ -5,6 +5,10 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Explained how `npm run build:demo` actually switches the frontend into
+  demo mode (`--mode demo` loading `.env.demo`, read by `api.js` as
+  `VITE_DEMO_MODE`) in the Demo mode section, instead of just naming the
+  command.
 - Documented example responses for `GET /api/analyses`,
   `GET /api/analyses/stats`, and `GET /api/analyses/:id` in the API section
   (previously only `POST /api/analyze` had one).

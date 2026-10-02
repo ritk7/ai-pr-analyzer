@@ -249,6 +249,11 @@ project against live repos), so it runs on static hosting with no server at all.
 UI makes clear it's sample data, not a live connection. This is what's deployed to the
 [live demo](https://ritk7.github.io/ai-pr-analyzer/) via the `gh-pages` branch.
 
+`--mode demo` makes Vite load `frontend/.env.demo` instead of `.env`, setting `VITE_DEMO_MODE=true`.
+[`api.js`](frontend/src/api.js) checks that flag at build time and routes every call through
+[`demoStore.js`](frontend/src/demoStore.js)/`demoData.js` instead of a real backend — no code change
+needed to switch between the two, just the build mode.
+
 ### Tests
 ```bash
 cd backend
