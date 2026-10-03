@@ -1,5 +1,10 @@
 # AI PR & Code Review Assistant
 
+![Node.js 20+](https://img.shields.io/badge/node-20%2B-339933)
+![Stack](https://img.shields.io/badge/stack-MERN-47A248)
+![Generation](https://img.shields.io/badge/generation-Ollama%20(local)-6f42c1)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 Connects to a GitHub repo, pulls recent commits and pull requests, and for each one generates:
 
 - a **plain-English summary** (1-2 sentences, via a local Ollama model)
