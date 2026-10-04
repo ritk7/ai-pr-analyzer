@@ -286,7 +286,9 @@ deterministic `_id` tiebreak so pages cannot repeat or drop rows.
 
 Read parameters are **clamped**; write parameters are **rejected**. Reads are cheap and idempotent so
 forgiveness costs nothing, while an analyze run is expensive enough that silently honouring something
-other than what was asked would be the wrong trade.
+other than what was asked would be the wrong trade. Concretely: `page` defaults to `1` and is clamped
+to at least `1`; `limit` defaults to `20` and is clamped to the `1`-`100` range regardless of what's
+requested — neither can produce a `400`.
 
 **Example** — analyzing a repo with small limits for a quick test run:
 

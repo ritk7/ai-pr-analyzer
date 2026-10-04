@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Documented the actual default and clamped range for `GET /api/analyses`'s `page` and
+  `limit` query parameters, instead of just saying they're clamped.
 - Explained how `npm run build:demo` actually switches the frontend into
   demo mode (`--mode demo` loading `.env.demo`, read by `api.js` as
   `VITE_DEMO_MODE`) in the Demo mode section, instead of just naming the
