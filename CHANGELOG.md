@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added the actual JSON shape of an error response (`{ error: { code, message, details } }`)
+  to the error-handling section, with a real example of `details` on a rate-limit error.
 - Documented the actual default and clamped range for `GET /api/analyses`'s `page` and
   `limit` query parameters, instead of just saying they're clamped.
 - Explained how `npm run build:demo` actually switches the frontend into

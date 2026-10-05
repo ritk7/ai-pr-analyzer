@@ -149,6 +149,20 @@ plain-English banner.
 | Ollama unreachable | 503 | `OLLAMA_UNAVAILABLE` |
 | Ollama timed out | 504 | `OLLAMA_TIMEOUT` |
 
+Every error response shares one shape, `{ "error": { "code", "message", "details" } }` —
+`details` is omitted unless the error has structured extra data to offer. For example, a rate
+limit carries the reset time so a client can back off intelligently instead of just retrying blind:
+
+```jsonc
+{
+  "error": {
+    "code": "GITHUB_RATE_LIMITED",
+    "message": "GitHub API rate limit exceeded. Resets at 2026-09-17T10:00:00.000Z.",
+    "details": { "resetAt": "2026-09-17T10:00:00.000Z" }
+  }
+}
+```
+
 **Why "not found" and "private" share one error**: GitHub returns 404 for both and deliberately does
 not distinguish them, so an unauthenticated caller can't probe for private repos. There is no way to
 tell them apart from the response, so the message says so rather than guessing.
