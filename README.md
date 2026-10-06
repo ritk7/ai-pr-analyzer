@@ -408,6 +408,10 @@ afterward with `GET /api/analyses?repo=octocat/Hello-World`.
 - **No automated frontend tests.** The 40-test suite (`cd backend && npm test`) covers the risk
   formula, truncation budget, LLM response parser and GitHub error paths; the dashboard is verified
   manually against a live backend and via the demo-mode build.
+- **No automatic retry on GitHub rate limits.** A rate-limited call fails the request immediately
+  with `GITHUB_RATE_LIMITED` and the reset time in `details.resetAt` (see
+  [Explicit error handling](#explicit-error-handling)) rather than waiting and retrying — the caller
+  is responsible for trying again after that time.
 
 ## Status
 
