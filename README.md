@@ -144,6 +144,7 @@ plain-English banner.
 | Repo doesn't exist, or is private and the token can't see it | 404 | `REPO_NOT_FOUND_OR_PRIVATE` |
 | Request body too large | 413 | `PAYLOAD_TOO_LARGE` |
 | Repo exists but has no commits | 422 | `REPO_EMPTY` |
+| Analysis id well-formed but no matching record | 404 | `NOT_FOUND` |
 | GitHub rate limit (primary 403, secondary 403/429, bare 429) | 429 | `GITHUB_RATE_LIMITED` |
 | Other GitHub API error | 502 | `GITHUB_API_ERROR` |
 | Ollama unreachable | 503 | `OLLAMA_UNAVAILABLE` |
